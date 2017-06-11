@@ -1,0 +1,21 @@
+#!/bin/bash
+
+## install php
+cp -frp /usr/lib64/libldap* /usr/lib
+
+
+wget http://cn2.php.net/get/php-5.6.30.tar.gz/from/this/mirror -O /data/shell/php-5.6.30.tar.gz
+tar zxvf /data/shell/php-5.6.30.tar.gz -C /data/shell/
+
+PHP_INSTALL_PATH=/usr/local/php
+MYSQL_INSTALL_PATH=/usr
+
+echo '/usr/local/lib64
+/usr/local/lib
+/usr/lib
+/usr/lib64'>>/etc/ld.so.conf && ldconfig -v
+
+cd /data/shell/php-5.6.30/
+
+./configure --prefix=${PHP_INSTALL_PATH} --with-config-file-path=${PHP_INSTALL_PATH}/etc --with-mysql --with-pdo-mysql=${MYSQL_INSTALL_PATH}/bin/mysql_config  --with-mysqli=${MYSQL_INSTALL_PATH}/bin/mysql_config --with-iconv-dir=/usr/local --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib --with-libxml-dir=/usr/lib64 --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --with-curl --with-curlwrappers --enable-mbregex --enable-fpm --enable-mbstring --with-mcrypt --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --enable-sockets --with-ldap --with-ldap-sasl --with-xmlrpc --enable-zip --enable-soap --enable-pdo --with-pdo-mysql --without-pear --enable-opcache=no
+make && make install

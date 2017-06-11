@@ -1,0 +1,18 @@
+---
+# This playbook will install new epel
+
+- name: Download new epel
+  get_url:
+    url: http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+    dest: /data/shell/epel-release-6-8.noarch.rpm
+
+- name: Install new epel
+  command: rpm -ivh /data/shell/epel-release-6-8.noarch.rpm
+  ignore_errors: yes
+
+- name: Copy epel config
+  template: src=epel.repo.j2 dest=/etc/yum.repos.d/epel.repo
+
+## need to execute clean command here, let it work
+- name: clean epel
+  command: yum clean all

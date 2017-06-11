@@ -1,0 +1,21 @@
+---
+# This playbook will install node.js
+
+- name: Download Node.js 
+  get_url:
+    url: https://npm.taobao.org/mirrors/node/v8.0.0/node-v8.0.0.tar.gz
+    dest: /data/shell/node-v8.0.0
+
+- name: Extract anchive
+  unarchive:
+    dest: /data/shell
+    src: /data/shell/node-v8.0.0
+    creates: /data/shell/node-v8.0.0
+    copy: no
+
+- name: Install node.js
+  command: chdir=/data/shell/node-v8.0.0 {{ item }}
+  with_items:
+    - ./configure
+    - make
+    - make install
