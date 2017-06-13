@@ -1,7 +1,6 @@
 ---
 # This playbook will install common dependencies
 
-
 - name: Install common package
   yum: name={{ item }} state=installed
   with_items:
@@ -11,7 +10,7 @@
     - nginx
     - libselinux-python
 
-- include: update_epel.yml
+- name: create install directory
+  file: path={{ install_dir }} state=directory owner=root group=root mode=0766
 
-- name: Mkdir install directory
-  command: mkdir -p /data/shell
+- include_tasks: update_epel.yml

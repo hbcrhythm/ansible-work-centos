@@ -11,12 +11,12 @@
   tags:
     - common
 
-- name: deploy vim
-  hosts: vimservers
-  remote_user: root
+# - name: deploy work environment
+#   hosts: vimservers
+#   remote_user: root
 
-  roles:
-    - vim
+#   roles:
+#     - work
 
-  tags:
-    - vim
+#   tags:
+#     - work

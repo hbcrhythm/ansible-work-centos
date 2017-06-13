@@ -4,10 +4,10 @@
 - name: Download new epel
   get_url:
     url: http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-    dest: /data/shell/epel-release-6-8.noarch.rpm
+    dest: "{{ install_dir }} /epel-release-6-8.noarch.rpm"
 
 - name: Install new epel
-  command: rpm -ivh /data/shell/epel-release-6-8.noarch.rpm
+  command: rpm -ivh {{ install_dir }}/epel-release-6-8.noarch.rpm
   ignore_errors: yes
 
 - name: Copy epel config
