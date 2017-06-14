@@ -1,0 +1,15 @@
+---
+# This playbook will update CentOS-Base.repo to aliyun CentOS-Base.repo 
+
+# http://mirrors.aliyun.com/help/centos 
+
+- name: backup CentOS-Base
+  command: mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
+
+- name: Download aliyun CentOS-Base
+  get_url:
+    url: http://mirrors.aliyun.com/repo/Centos-6.repo
+    dest: /etc/yum.repos.d/CentOS-Base.repo
+
+- name: Yum makecacahe
+  command: yum makecache

@@ -1,0 +1,19 @@
+---
+# This playbook will install laravel-angular-admin
+
+# - name: Copy the code from repository
+#   git: repo={{ repository }} dest={{ install_dir }}/laravel accept_hostkey=yes
+
+# - name: Config mysql data
+#   command: mysql -uroot -e "create database order_food default character set utf8";
+#   ignore_errors: yes
+
+# - name: Install composer for laravel-angular-admin
+#   command: chdir={{ laravel_angular_admin_dir }} {{ item }}
+#   with_items:
+#     - composer install
+
+- name: Install npm for laravel-angular-admin
+  command: chdir={{ laravel_angular_admin_dir }} {{ item }}
+  with_items:
+    - cnpm install

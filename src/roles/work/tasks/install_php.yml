@@ -40,24 +40,24 @@
     - openldap-servers
 
 - name: Copy php install shell
-  template: src=php.shell.j2 dest=/data/shell/php_install.sh
+  template: src=php.install.j2 dest=/data/shell/php_install.sh
 
 - name: Copy tar.gz
   copy: src=libmcrypt-2.5.7.tar.gz dest=/data/shell
 
 - name: Extract archive
   unarchive:
-    dest: /data/shell
-    src: /data/shell/libmcrypt-2.5.7.tar.gz
-    creates: /data/shell/libmcrypt-2.5.7
+    dest: "{{ install_dir }}"
+    src: "{{ install_dir }}/libmcrypt-2.5.7.tar.gz"
+    creates: "{{ install_dir }}/libmcrypt-2.5.7"
     copy: no
 
 - name: Install libmcrypt
-  command: chdir=/data/shell/libmcrypt-2.5.7 {{ item }}
+  command: chdir={{ install_dir }}/libmcrypt-2.5.7 {{ item }}
   with_items:
     - ./configure
     - make
     - make install
 
 - name: Run php install
-  command: sh /data/shell/php_install.sh
+  command: sh {{ install_dir }}/php_install.sh

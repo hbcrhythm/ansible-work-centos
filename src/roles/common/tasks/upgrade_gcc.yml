@@ -1,0 +1,19 @@
+---
+# This playbook will upgrade gcc g++ gfortran etc.
+
+# 这里的包安装很可能失败，因为墙，所以多尝试几次
+# 注意这里的安装包安装完 因为升级了gcc, ansible需要重新 source ./hacking/env-setup
+
+- name: Upgrade packet for gcc g++ etc 
+  yum: name={{ item }} state=installed
+  with_items:
+    - centos-release-scl
+
+## 要先安装上面的包才可以进行本操作
+- name: Upgrade packet for gcc g++ etc 
+  yum: name={{ item }} state=installed
+  with_items:
+    - devtoolset-3-toolchain
+
+- name: enable devtoolset-3
+  command: scl enable devtoolset-3 bash

@@ -4,18 +4,23 @@
 - name: Download Node.js 
   get_url:
     url: https://npm.taobao.org/mirrors/node/v8.0.0/node-v8.0.0.tar.gz
-    dest: "{{ install_dir }}/node-v8.0.0"
+    dest: "{{ install_dir }}/node-v8.0.0.tar.gz"
 
 - name: Extract anchive
   unarchive:
-    dest: /data/shell
-    src: /data/shell/node-v8.0.0.tar.gz
-    creates: /data/shell/node-v8.0.0
+    dest: "{{ install_dir }}"
+    src: "{{ install_dir }}/node-v8.0.0.tar.gz"
+    creates: "{{ install_dir }}/node-v8.0.0"
     copy: no
 
+
+## run make 和 make install will show to error there , i will finish it, later.
 - name: Install node.js
-  command: chdir=/data/shell/node-v8.0.0 {{ item }}
+  command: chdir={{ install_dir }}/node-v8.0.0 {{ item }}
   with_items:
     - ./configure
     - make
     - make install
+
+- name: cnpm instead of npm
+  command: npm install -g cnpm --registry=https://registry.npm.taobao.org

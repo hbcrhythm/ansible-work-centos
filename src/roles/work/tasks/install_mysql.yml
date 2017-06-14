@@ -1,7 +1,7 @@
 ---
 # This playbook will install mysql dependencies
 
-- name: Install common package
+- name: Install mysql package
   yum: name={{ item }} state=installed
   with_items:
     - mysql-server

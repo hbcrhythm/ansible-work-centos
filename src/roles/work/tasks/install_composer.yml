@@ -2,10 +2,10 @@
 # This playbook will install composer
 
 - name: Install Composer
-  command: chdir=/data/shell {{ item }}
+  command: chdir={{ install_dir }} {{ item }}
   with_items:
-    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-    - php composer-setup.php
-    - php -r "unlink('composer-setup.php');"
+    - "{{ path_for_php }} -r \"copy('https://getcomposer.org/installer', 'composer-setup.php');\""
+    - "{{ path_for_php }} composer-setup.php"
+    - "{{ path_for_php }} -r \"unlink('composer-setup.php');\""
     - mv composer.phar /usr/local/bin/composer
     - composer config -g repo.packagist composer https://packagist.phpcomposer.com
