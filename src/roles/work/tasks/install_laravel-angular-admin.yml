@@ -1,19 +1,45 @@
 ---
 # This playbook will install laravel-angular-admin
+# step by step to run below in china. there may be error.
 
-# - name: Copy the code from repository
-#   git: repo={{ repository }} dest={{ install_dir }}/laravel accept_hostkey=yes
+- name: Copy the code from repository
+  git: repo={{ repository }} dest={{ install_dir }}/laravel accept_hostkey=yes
 
-# - name: Config mysql data
-#   command: mysql -uroot -e "create database order_food default character set utf8";
-#   ignore_errors: yes
+- name: Config mysql data
+  command: mysql -uroot -e "create database order_food default character set utf8";
+  ignore_errors: yes
 
-# - name: Install composer for laravel-angular-admin
-#   command: chdir={{ laravel_angular_admin_dir }} {{ item }}
-#   with_items:
-#     - composer install
+- name: Config need to tool.
+  command: chdir={{ laravel-angular-admin }} {{ item }}
+    - cnpm install bower
+    - cnpm install gulp
 
-- name: Install npm for laravel-angular-admin
+- name: Config composer dependencies for laravel-angular-admin
+  command: chdir={{ laravel_angular_admin_dir }} {{ item }}
+  with_items:
+    - composer install
+
+- name: Config cnpm dependencies for laravel-angular-admin
   command: chdir={{ laravel_angular_admin_dir }} {{ item }}
   with_items:
     - cnpm install
+  ignore_errors: yes
+
+- name: Config bower dependencies for laravel-angular-admin
+  command: chdir={{ laravel_angular_admin_dir }} {{ item }}
+  with_items:
+    - ./bower/bin/bower install --allow-root
+
+- name: create and fill database
+  command: chdir={{ laravel_angular_admin_dir }} {{ item }}
+  with_items:
+    - php artisan migrate
+    - php artisan db:seed
+
+- name: gulp
+  command: chdir={{ laravel_angular_admin_dir }} {{ item }}
+  with_items:
+    - gulp
+
+- name: start web service
+  command: php artisan serve --host=192.168.0.99

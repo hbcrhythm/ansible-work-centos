@@ -8,7 +8,13 @@
 #     - vim
 #     - git
 #     - nginx
+#     - xz
+#     - mlocate
 #     - libselinux-python
+
+# - name: updatedb
+#   command: updatedb
+
 
 # - name: create install directory
 #   file: path={{ install_dir }} state=directory owner=root group=root mode=0766

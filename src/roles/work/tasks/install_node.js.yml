@@ -3,20 +3,23 @@
 
 - name: Download Node.js 
   get_url:
-    url: https://npm.taobao.org/mirrors/node/v8.0.0/node-v8.0.0.tar.gz
-    dest: "{{ install_dir }}/node-v8.0.0.tar.gz"
+    url: https://nodejs.org/dist/v6.11.0/node-v6.11.0.tar.gz
+    dest: "{{ install_dir }}/node-v6.11.0.tar.gz
 
 - name: Extract anchive
   unarchive:
     dest: "{{ install_dir }}"
-    src: "{{ install_dir }}/node-v8.0.0.tar.gz"
-    creates: "{{ install_dir }}/node-v8.0.0"
+    src: "{{ install_dir }}/node-v6.11.0.tar.gz"
+    creates: "{{ install_dir }}/node-v6.11.0
     copy: no
 
 
-## run make 和 make install will show to error there , i will finish it, later.
+## need upgrade gcc to 4.8+ first, then do it. if not will show error, below.
+- name: enable devtoolset-3
+  command: scl enable devtoolset-3 bash
+
 - name: Install node.js
-  command: chdir={{ install_dir }}/node-v8.0.0 {{ item }}
+  command: chdir={{ install_dir }}/node-v6.11.0 {{ item }}
   with_items:
     - ./configure
     - make
