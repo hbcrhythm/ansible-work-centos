@@ -5,4 +5,4 @@ install_dir: /data/shell
 path_for_php: /usr/local/php/bin/php
 repository: https://github.com/hbcrhythm/laravel-angular-admin.git
 
-laravel_angular_admin_dir: /data/shell/laravel
+laravel_angular_admin_dir: /data/shell/laravel1
