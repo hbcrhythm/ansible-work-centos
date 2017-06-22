@@ -1,0 +1,20 @@
+---
+# This playbook will install asch
+
+- name: Copy the source code from repository
+  git: repo={{ asch_repository }} dest={{ asch_dir }} accept_hostkey=yes
+
+- name: enable devtoolset-3
+  command: scl enable devtoolset-3 bash
+
+- name: Config need to tool
+  command: chdir={{ asch_dir }} {{ item }}
+  with_items:
+    - npm install -g node-gyp
+    - npm install sqlite3 --loglevel=verbose
+    - npm install
+
+# solve Error: Could not locate the bindings file. Tried: 
+- name: solve a Error 
+  command: chdir={{ asch_dir }}/node_modules/ed25519 {{ item }}
+    - sudo node-gyp BUILDTYPE=Release rebuild 

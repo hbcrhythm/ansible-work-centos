@@ -3,7 +3,7 @@
 # step by step to run below in china. there may be error.
 
 # - name: Copy the code from repository
-#   git: repo={{ repository }} dest={{ laravel_angular_admin_dir }} accept_hostkey=yes
+#   git: repo={{ laravel_angular_admin_repository }} dest={{ laravel_angular_admin_dir }} accept_hostkey=yes
 
 # - name: Config mysql data
 #   command: mysql -uroot -e "create database order_food default character set utf8";

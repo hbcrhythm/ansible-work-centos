@@ -3,6 +3,14 @@
 
 install_dir: /data/shell
 path_for_php: /usr/local/php/bin/php
-repository: https://github.com/hbcrhythm/laravel-angular-admin.git
-
+laravel_angular_admin_repository: https://github.com/hbcrhythm/laravel-angular-admin.git
 laravel_angular_admin_dir: /data/shell/laravel1
+
+asch_repository: https://github.com/sqfasd/asch.git
+asch_dir: /data/shell/asch
+
+proxychains_repository: https://github.com/rofl0r/proxychains-ng.git
+proxychains_dir: /data/shell/proxychains
+
+shadowsocks_ip: 192.168.0.104
+shadowsocks_port: 1080

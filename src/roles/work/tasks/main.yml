@@ -1,8 +1,10 @@
 ---
 # This playbook will install Env
 
+# - include_tasks: install_proxychains.yml
 # - include_tasks: install_mysql.yml
 # - include_tasks: install_php.yml
 # - include_tasks: install_composer.yml
 # - include_tasks: install_node.js.yml
 - include_tasks: install_laravel-angular-admin.yml
+# - include_tasks: install_asch.yml
