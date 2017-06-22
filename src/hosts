@@ -1,2 +1,2 @@
 [vimservers]
-99 ansible_ssh_host=127.0.0.1 ansible_ssh_port=61618 ansible_ssh_user=root ansible_ssh_pass=rootroot
+99 ansible_ssh_host=127.0.0.1 ansible_ssh_port=61619 ansible_ssh_user=root ansible_ssh_pass=root

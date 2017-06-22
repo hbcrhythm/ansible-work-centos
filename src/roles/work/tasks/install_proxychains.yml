@@ -1,20 +1,20 @@
 ---
 # This playbook will install proxychains
 
-- name: Copy the code from repository
-  git: repo={{ proxychains_repository }} dest={{ proxychains_dir }} accept_hostkey=yes
+# - name: Copy the code from repository
+#   git: repo={{ proxychains_repository }} dest={{ proxychains_dir }} accept_hostkey=yes
 
-- name: Install proxychains
-  command: chdir={{ proxychains_dir }} {{ item }}
-  with_items:
-    - ./configure
-    - make
-    - make install
+# - name: Install proxychains
+#   command: chdir={{ proxychains_dir }} {{ item }}
+#   with_items:
+#     - ./configure
+#     - make
+#     - make install
 
-- name: Copy conf
-  copy: src={{ proxychains_dir }}/src/proxychains.conf dest=/etc/proxychains.conf
+# - name: Copy conf
+#   copy: src={{ proxychains_dir }}/src/proxychains.conf dest=/etc/proxychains.conf
 
 - name: Config env
-  command: {{ item }}
+  command: "{{ item }}"
   with_items:
-    - sed -i 's/socks4 127.0.0.1 9095/socks5 {{ shadowsocks_ip }} {{ shadowsocks_port}}/g' /etc/proxychains.conf
+    - sed -i 's/socks4..127.0.0.1 9050/socks5 {{ shadowsocks_ip }} {{ shadowsocks_port}}/g' /etc/proxychains.conf
