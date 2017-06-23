@@ -10,9 +10,10 @@
 - name: Config need to tool
   command: chdir={{ asch_dir }} {{ item }}
   with_items:
-    - proxychains4 -f proxychains.conf npm install -g node-gyp
-    - proxychains4 -f proxychains.conf npm install sqlite3 --loglevel=verbose
-    - proxychains4 -f proxychains.conf npm install
+    - proxychains4 -f /etc/proxychians.conf npm install -g node-gyp
+    - proxychains4 -f /etc/proxychians.conf npm install node-gyp
+    - proxychains4 -f /etc/proxychians.conf npm install sqlite3 --loglevel=verbose
+    - proxychains4 -f /etc/proxychians.conf npm install
 
 # solve Error: Could not locate the bindings file. Tried: 
 - name: solve a Error 
