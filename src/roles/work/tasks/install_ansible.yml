@@ -1,0 +1,35 @@
+---
+# This playbook will install ansible 
+# need to install pip first
+
+##
+## need install pip 
+##
+
+- name: install depen
+  yum: name={{ item }} state=installed
+  with_items:
+    - kernel-devel
+    - libxslt-devel
+    - libffi-devel
+    - python-devel
+    - mysql-devel
+    - zlib-devel
+    - openssl-devel
+  ignore_errors: yes
+
+- name: install depen2
+  command: "{{ item }}"
+  with_items:
+    - pip install
+    - pip paramiko
+    - pip PyYAML
+    - pip Jinja2
+    - pip httplib2
+    - pip six
+
+- name: Copy the source code from repository
+  git: repo={{ ansible_repository }} dest={{ ansible_dir }} accept_hostkey=yes
+
+- name: start env
+  command: source {{ ansible_dir }}/hacking/env-setup

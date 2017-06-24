@@ -1,0 +1,5 @@
+---
+# This playbook will start shadowsocks client
+
+- name: start client
+  command: sslocal -s {{ shadowsocks_server_ip }} -p {{ shadowsocks_server_port }} -l {{ shadowsocks_client_proxy_port }} -k {{ shwdowsocks_password }} -t 600 -m {{ shadowsocks_encryption_atandard }}
