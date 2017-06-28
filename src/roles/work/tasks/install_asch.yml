@@ -1,5 +1,6 @@
 ---
 # This playbook will install asch
+# This playbook not finished , maybe exist error.
 
 - name: Copy the source code from repository
   git: repo={{ asch_repository }} dest={{ asch_dir }} accept_hostkey=yes
@@ -10,9 +11,10 @@
 - name: Config need to tool
   command: chdir={{ asch_dir }} {{ item }}
   with_items:
-    - proxychains4 -f /etc/proxychians.conf npm install node-gyp
-    - proxychains4 -f /etc/proxychians.conf npm install -g node-gyp
-    - proxychains4 -f /etc/proxychians.conf npm install sqlite3 --loglevel=verbose
+    - proxychains4 -f /etc/proxychains.conf npm install node-gyp
+    - proxychains4 -f /etc/proxychains.conf npm install -g node-gyp
+    - proxychains4 -f /etc/proxychains.conf npm install sqlite3 --loglevel=verbose
+    - npm install sodium --unsafe-perm
     - npm install
 
 # solve Error: Could not locate the bindings file. Tried: 

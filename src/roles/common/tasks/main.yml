@@ -1,24 +1,28 @@
 ---
 # This playbook will install common dependencies
 
-# - name: Install common package
-#   yum: name={{ item }} state=installed
-#   with_items:
-#     - wget
-#     - vim
-#     - git
-#     - nginx
-#     - xz
-#     - mlocate
-#     - libselinux-python
+# - include_tasks: update_resolv.yml
 
-# - name: updatedb
-#   command: updatedb
+- include_tasks: update_CentOS-Base.repo.yml
+
+- name: Install common package
+  yum: name={{ item }} state=installed
+  with_items:
+    - wget
+    - vim
+    - git
+    # - nginx
+    - xz
+    - mlocate
+    - libselinux-python
+
+- name: updatedb
+  command: updatedb
 
 
-# - name: create install directory
-#   file: path={{ install_dir }} state=directory owner=root group=root mode=0766
+- name: create install directory
+  file: path={{ install_dir }} state=directory owner=root group=root mode=0766
 
-# - include_tasks: update_CentOS-Base.repo.yml
+
 
 - include_tasks: upgrade_gcc.yml

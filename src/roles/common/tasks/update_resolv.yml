@@ -1,0 +1,7 @@
+---
+# This playbook will update resolv.conf
+
+## 这个无法生效 后面在看 因为文件是空行
+- name: Add nameserver
+  command: sed -i 's//nameserver 8.8.8.8/g' /etc/resolv.conf
+  notify: restart network

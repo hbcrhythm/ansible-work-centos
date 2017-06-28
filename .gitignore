@@ -1,2 +1,2 @@
 # Config files
-/src/group_vars/all
+src/group_vars/all

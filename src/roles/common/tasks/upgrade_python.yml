@@ -1,0 +1,43 @@
+---
+# This playbook will upgrade python.
+
+- name: upgrade packet
+  yum: name=* state=latest
+
+- name: install Development tools packet
+  yum: name="@Development tools" state=present
+
+- name: Install common package
+  yum: name={{ item }} state=installed
+  with_items:
+    - zlib-devel
+    - bzip2-devel
+    - openssl-devel
+    - xz-libs
+    - wget
+
+- name: Download Python2.7.8
+  get_url:
+    url: http://www.python.org/ftp/python/2.7.8/Python-2.7.8.tar.xz
+    dest: "{{ install_dir }}/Python-2.7.8.tar.xz"
+
+- name: Extract anchive
+  unarchive:
+    dest: "{{ install_dir }}"
+    src: "{{ install_dir }}/Python-2.7.8.tar.xz"
+    creates: "{{ install_dir }}/Python-2.7.8"
+    copy: no
+
+- name: Install Python2.7.8
+  command: chdir={{ install_dir }}/Python-2.7.8 {{ item }}
+  with_items:
+    - ./configure --prefix=/usr/local
+    - make
+    - make altinstall
+
+- name: Backup Old Version Python
+  command: name={{ item }}
+  with_items:
+    - mv /usr/bin/yum /usr/bin/yum.backup
+    - ln -s /usr/local/bin/python2.7 /usr/bin/python
+    - sed -i "s/#!\/usr/bin/python/#!/usr/bin/python2.6/g" /usr/bin/yum #fix yum , let it work
