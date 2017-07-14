@@ -1,0 +1,13 @@
+---
+# This playbook will sync time
+
+- name: Install Ntp
+  yum: name={{ item }} state=installed
+  with_items:
+    - ntp
+
+- name : ntpdate time.nist.gov 
+  command : ntpdate time.nuri.net
+
+- name : timing sync
+  command : echo '*/10 * * * * ntpdate time.nuri.net' >> /etc/crontab
