@@ -32,3 +32,9 @@ source /root/.bashrc
 ## 创建连接，防止composer 找不到php
 ln -s /usr/local/php/bin/php /usr/local/bin/php
 
+## 配置php-fpm, centos 不要通过yum 安装，因为安装出来的版本可能不一致，会导致浏览器访问到的版本和实际linux下面的版本是不一致的。
+cp /usr/local/php/etc/php-fpm.conf.default /usr/local/php/etc/php-fpm.conf
+cp /usr/local/php/etc/php-fpm.d/www.conf.default /usr/local/php/etc/php-fpm.d/www.conf
+
+## 启动php-fpm
+/usr/local/php/sbin/php-fpm
