@@ -23,3 +23,12 @@ shadowsocks_server_port: 885
 shadowsocks_client_proxy_port: 1080
 shadowsocks_password: password
 shadowsocks_encryption_atandard: aes-256-cfb
+
+redis_url: http://download.redis.io/releases/redis-4.0.1.tar.gz
+redis_dir: /data/shell/redis
+
+nodebb_dir: /data/shell/nodebb
+nodebb_version: v1.5.x
+nodebb_repository: https://github.com/NodeBB/NodeBB
+nodebb_nginx_port: 8900
+nodebb_port: 4567

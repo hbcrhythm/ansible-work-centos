@@ -1,0 +1,63 @@
+---
+# This playbook will install NodeBB forms
+# database use to redis
+
+- name: update
+  yum: name=* state=latest
+
+# we will not install npm , since before has been installed.
+- name: start epel
+  yum: name={{ item }} state=installed
+  with_items:
+    - groupinstall
+    - "Development Tools"
+    - git
+    # - redis
+    - ImageMagick
+    # - npm  
+
+- name: Download Redis 
+  get_url: 
+    url: "{{ redis_url }}"
+    dest: "{{ redis_dir }}/redis-4.0.1.tar.gz"
+
+- name: Extract Archive
+  unarchive:
+    dest: "{{ redis_dir }}"
+    src: "{{ redis_dir }}/redis-4.0.1.tar.gz"
+    creates: "{{ redis_dir }}/redis-4.0.1"
+    copy: no
+
+- name: Install and Start Redis
+  command: chdir={{ redis_dir }}/redis-4.0.1 {{ item }}
+  with:
+    - make
+    - src/redis-server
+
+- name: Config Nginx
+  template: src=nodebb.conf.j2 dest=/etc/nginx/conf.d/nodebb.conf
+  notify: restart nginx
+
+- name: Config Iptables
+  command: "{{ item }}"
+  with:
+    - sed -i '/{{ nodebb_nginx_port }}/d' /etc/sysconfig/iptables
+    - sed -i '/{{ nodebb_port }}/d' /etc/sysconfig/iptables
+    - echo "-A INPUT -m state --state NEW -m tcp -p tcp --dport {{ nodebb_nginx_port }} -j ACCEPT" >> /etc/sysconfig/iptables
+    - echo "-A INPUT -m state --state NEW -m tcp -p tcp --dport {{ nodebb_port }} -j ACCEPT" >> /etc/sysconfig/iptables
+  notify: restart iptables
+
+
+- name: Copy the code of NodeBB from repository
+  git: repo={{ nodebb_repository }} dest={{ nodebb_dir }} version={{ nodebb_version }} accept_hostkey=yes
+
+- name: Install NodeBB
+  command: chdir={{ nodebb_dir }} {{ item }}
+  with:
+    - npm install
+
+# next, you need to configure NodeBB manual.
+# run ./nodebb setup on nodebb_dir
+# add "socket.io":{
+#        "origins":"http://localhost:4567 http://192.168.0.99:8900"
+#        } to config.json on nodebb_dir
