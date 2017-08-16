@@ -29,7 +29,7 @@ sed -i 's/; always_populate_raw_post_data = -1/always_populate_raw_post_data = -
 echo "alias php='/usr/local/php/bin/php'" >> /root/.bashrc
 source /root/.bashrc
 
-## 创建连接，防止composer 找不到php
+## 创建链接，防止composer 找不到php
 ln -s /usr/local/php/bin/php /usr/local/bin/php
 
 ## 配置php-fpm, centos 不要通过yum 安装，因为安装出来的版本可能不一致，会导致浏览器访问到的版本和实际linux下面的版本是不一致的。

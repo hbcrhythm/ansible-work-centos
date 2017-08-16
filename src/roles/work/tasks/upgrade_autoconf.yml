@@ -6,7 +6,7 @@
     url: http://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.gz
     dest: "{{ install_dir }}/autoconf-2.69.tar.gz"
 
-- name: Extract Anchive
+- name: Extract Archive
   unarchive:
     dest: "{{ install_dir }}"
     src: "{{ install_dir }}/autoconf-2.69.tar.gz"

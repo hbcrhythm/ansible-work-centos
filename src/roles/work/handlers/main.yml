@@ -1,0 +1,8 @@
+---
+# Handler to handle work notifications.
+
+- name: restart nginx
+  service: name=nginx state=restarted
+
+- name: restart iptables
+  service: name=iptables state=restarted
