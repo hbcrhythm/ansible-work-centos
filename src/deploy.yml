@@ -2,7 +2,7 @@
 # This playbook deploys env
 
 - name: deploy common
-  hosts: vimservers
+  hosts: servers
   remote_user: root
 
   roles:
@@ -12,7 +12,7 @@
     - common
 
 - name: deploy work environment
-  hosts: vimservers
+  hosts: servers
   remote_user: root
 
   roles:

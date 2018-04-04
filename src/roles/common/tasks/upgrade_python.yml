@@ -36,8 +36,18 @@
     - make altinstall
 
 - name: Backup Old Version Python
-  command: name={{ item }}
+  shell: "{{ item }}"
   with_items:
-    - mv /usr/bin/yum /usr/bin/yum.backup
-    - ln -s /usr/local/bin/python2.7 /usr/bin/python
-    - sed -i "s/#!\/usr/bin/python/#!/usr/bin/python2.6/g" /usr/bin/yum #fix yum , let it work
+    - cp /usr/bin/yum /usr/bin/yum.backup
+    - mv /usr/bin/python /usr/bin/python.old.bak
+    #- ln -s /usr/local/bin/python2.7 /usr/bin/python
+    - sed -i 's/#!\/usr\/bin\/python/#!\/usr\/bin\/python2.6/g' /usr/bin/yum #fix yum , let it work
+
+
+- name: setup symlink
+  file: path=/usr/bin/python
+        src=/usr/local/bin/python2.7
+        state=link
+        force=yes
+
+

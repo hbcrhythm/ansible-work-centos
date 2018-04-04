@@ -1,10 +1,75 @@
 ---
-# This playbook will install mysql dependencies
+## 期间遇到 .... ERROR! The server quit without updating PID file (/usr/local/mysql/VM_5 是my.conf 厘米时期内的data 配置错了。少加了data路径
+# 如果以前安装过mysql的话 要看下/usr/bin/mysql 这个文件是不是新版本的，不是后面需要删掉旧版本的 把./bin/mysql复制过去。
 
-- name: Install mysql package
-  yum: name={{ item }} state=installed
+# This playbook will install mysql dependencies
+# shell> groupadd mysql
+# shell> useradd -r -g mysql -s /bin/false mysql
+# shell> cd /usr/local
+# shell> tar zxvf /path/to/mysql-VERSION-OS.tar.gz
+# shell> ln -s full-path-to-mysql-VERSION-OS mysql
+# shell> cd mysql
+# shell> mkdir mysql-files
+# shell> chown mysql:mysql mysql-files
+# shell> chmod 750 mysql-files
+# shell> mkdir data
+## 这里还需要修改 /etc/my.conf 下面的datadir 和 socket的位置 就好使赋值my.cnf.j2的配置
+# shell> bin/mysqld --initialize --user=mysql --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data
+# shell> bin/mysql_ssl_rsa_setup              
+# shell> bin/mysqld_safe --user=mysql &
+# # Next command is optional
+# shell> cp support-files/mysql.server /etc/init.d/mysql.server
+
+# 这里完成的话 还需要改mysql的密码，因为默认默认密码的话 是不给一些命名的
+# mysql> SET PASSWORD = PASSWORD('123456');
+# mysql> flush privileges;
+
+
+## ===============
+# 脚本暂时没有更改root 密码这些步骤，后续加。 
+## ===============
+
+- name: Download Mysql
+  get_url:
+    url: "{{ mysql_url }}"
+    dest: "{{ mysql_dir }}/{{ mysql_packet }}"
+
+# - name: Copy tar.gz
+#   copy: src="{{ mysql_packet }}" dest="{{ mysql_dir }}/{{ mysql_packet }}"
+
+- name: Create Mysql Install Directory
+  file: path={{ mysql_dir }} state=directory owner=root group=root mode=0766
+
+- name: Copy php install shell
+  template: src={{ mysql_packet }}.j2 dest={{ mysql_dir }}
+
+- name: Extract Archive
+  unarchive:
+    dest: "{{ mysql_dir }}"
+    src: "{{ mysql_dir }}/{{ mysql_packet }}"
+    creates: "{{ mysql_dir }}/mysql"
+    copy: no
+
+- name: Install Mysql
+  command: chdir={{ mysql_dir }} {{ item }}
   with_items:
-    - mysql-server
+    - groupadd mysql
+    - useradd -r -g mysql -s /bin/false mysql
+    - mkdir mysql-files
+    - chown mysql:mysql mysql-files
+    - chmod 750 mysql-files
+    - mkdir data
+
+- name: Copy my.cnf to etc
+  template: src={{ mysql_packet }}.j2 dest=/etc/my.cnf
+
+- name: Install Mysql
+  command: chdir={{ mysql_dir }} {{ item }}
+  with_items:
+    - bin/mysqld --initialize --user=mysql --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data
+    - bin/mysql_ssl_rsa_setup       
+    - cp support-files/mysql.server /etc/init.d/mysql
 
 - name: Start Mysql Service
-  service: name=mysqld state=started enabled=yes
+  service: name=mysql state=started enabled=yes
+

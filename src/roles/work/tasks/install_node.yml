@@ -1,13 +1,13 @@
 ---
 # This playbook will install node.js
 
-# - name: Download Node.js 
-#   get_url:
-#     url: https://nodejs.org/dist/v6.11.0/node-v6.11.0.tar.gz
-#     dest: "{{ install_dir }}/node-v6.11.0.tar.gz"
+- name: Download Node.js 
+  get_url:
+    url: https://nodejs.org/dist/v6.11.0/node-v6.11.0.tar.gz
+    dest: "{{ install_dir }}/node-v6.11.0.tar.gz"
 
-- name: Copy tar.gz
-  copy: src=node-v6.11.0.tar.gz dest=/data/shell
+# - name: Copy tar.gz
+#   copy: src=node-v6.11.0.tar.gz dest=/data/shell
 
 - name: Extract anchive
   unarchive:

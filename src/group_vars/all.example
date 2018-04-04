@@ -32,3 +32,11 @@ nodebb_version: v1.5.x
 nodebb_repository: https://github.com/NodeBB/NodeBB
 nodebb_nginx_port: 8900
 nodebb_port: 4567
+
+erlang_url: http://erlang.org/download/otp_src_19.0.tar.gz
+erlang_dir: /usr/local/server/erlang
+
+mysql_url: https://dev.mysql.com/get/Downloads/MySQL-5.7/mysql-5.7.21-linux-glibc2.12-x86_64.tar.gz
+mysql_dir: /usr/local/mysql
+mysql_packet: mysql-5.7.21-linux-glibc2.12-x86_64.tar.gz
+

@@ -9,4 +9,5 @@
 # - include_tasks: install_composer.yml
 # - include_tasks: install_node.yml
 # - include_tasks: install_laravel-angular-admin.yml
-- include_tasks: install_asch.yml
+# - include_tasks: install_asch.yml
+- include_tasks: install_erlang.yml

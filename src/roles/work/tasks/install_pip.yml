@@ -1,11 +1,18 @@
 ---
 # This playbook will install pip
 
-- name: start epel
-  yum: name={{ item }} state=installed
-  with_items:
-    - epel-release
-    - python-pip
+##  process
+# wget https://bootstrap.pypa.io/get-pip.py
+# python get-pip.py
+# ln -s /usr/local/bin/pip /usr/bin/pip
 
-- name: upgrade pip
-  command: pip install -- upgrade pip
+- name: Download get-pip.py
+  get_url:
+    url: https://bootstrap.pypa.io/get-pip.py
+    dest: "{{ install_dir }}/get-pip.py"
+
+- name: Install pip
+  command: chdir={{ install_dir }} {{ item }}
+  with_items:
+    - python get-pip.py
+

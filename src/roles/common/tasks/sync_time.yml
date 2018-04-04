@@ -9,5 +9,6 @@
 - name : ntpdate time.nist.gov 
   command : ntpdate time.nuri.net
 
+## command isn't can >> output 
 - name : timing sync
-  command : echo '*/10 * * * * ntpdate time.nuri.net' >> /etc/crontab
+  shell : echo '*/10 * * * * ntpdate time.nuri.net' >> /etc/crontab

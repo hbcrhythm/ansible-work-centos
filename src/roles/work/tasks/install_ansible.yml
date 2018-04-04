@@ -1,9 +1,10 @@
 ---
 # This playbook will install ansible 
-# need to install pip first
+# version 2.4.2
+# or yum install ansible (lastest release version)
 
 ##
-## need install pip 
+## need install pip first
 ##
 
 - name: install depen

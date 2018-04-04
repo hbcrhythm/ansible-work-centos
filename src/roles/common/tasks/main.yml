@@ -24,5 +24,6 @@
   file: path={{ install_dir }} state=directory owner=root group=root mode=0766
 
 
-
-- include_tasks: upgrade_gcc.yml
+-include_tasks: sync_time.yml
+# - include_tasks: upgrade_gcc.yml
+- include_tasks: update_CentOS-Base.repo.yml
