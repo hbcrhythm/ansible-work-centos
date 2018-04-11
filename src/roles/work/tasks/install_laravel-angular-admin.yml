@@ -52,5 +52,11 @@
 #   with_items:
 #     - ./node_modules/gulp/bin/gulp.js
 
+# - name: gulp
+#   command: chdir={{ laravel_angular_admin_dir }} {{ item }}
+#   with_items:
+#     - chmod -R 777 public
+#     - chmod -R 777 storage
+
 - name: start web service
   command: php {{ laravel_angular_admin_dir }}/artisan serve --host=192.168.0.99 &

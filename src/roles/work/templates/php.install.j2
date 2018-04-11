@@ -3,27 +3,32 @@
 ## Install php
 cp -frp /usr/lib64/libldap* /usr/lib
 
-wget http://cn2.php.net/get/php-5.6.30.tar.gz/from/this/mirror -O /data/shell/php-5.6.30.tar.gz
-tar zxvf /data/shell/php-5.6.30.tar.gz -C /data/shell/
+wget http://am1.php.net/get/php-7.2.4.tar.gz/from/this/mirror -O /usr/local/server/php-7.2.4.tar.gz
+tar zxvf /usr/local/server/php-7.2.4.tar.gz -C /usr/local/server
 
 PHP_INSTALL_PATH=/usr/local/php
-MYSQL_INSTALL_PATH=/usr
+MYSQL_INSTALL_PATH=/usr/local/mysql
+
+echo '/usr/local/mysql/lib' >> /etc/ld.so.conf
 
 echo '/usr/local/lib64
 /usr/local/lib
 /usr/lib
 /usr/lib64'>>/etc/ld.so.conf && ldconfig -v
 
-cd /data/shell/php-5.6.30/
+cd /usr/local/server/php-7.2.4
 
-./configure --prefix=${PHP_INSTALL_PATH} --with-config-file-path=${PHP_INSTALL_PATH}/etc --with-mysql --with-pdo-mysql=${MYSQL_INSTALL_PATH}/bin/mysql_config  --with-mysqli=${MYSQL_INSTALL_PATH}/bin/mysql_config --with-iconv-dir=/usr/local --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib --with-libxml-dir=/usr/lib64 --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --with-curl --with-curlwrappers --enable-mbregex --enable-fpm --enable-mbstring --with-mcrypt --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --enable-sockets --with-ldap --with-ldap-sasl --with-xmlrpc --enable-zip --enable-soap --enable-pdo --with-pdo-mysql --without-pear --enable-opcache=no
+# 在php7.2.* zip库库和php兼容有点问题，暂时去掉 zip 后面需要再装。
+# --with-curlwrappers  这个去掉，因为会引起问题在 http auathenticetion and github。
+./configure --prefix=${PHP_INSTALL_PATH} --with-config-file-path=${PHP_INSTALL_PATH}/etc --with-mysql --with-pdo-mysql=${MYSQL_INSTALL_PATH}/bin/mysql_config  --with-mysqli=${MYSQL_INSTALL_PATH}/bin/mysql_config --with-iconv-dir=/usr/local --with-freetype-dir --with-jpeg-dir --with-png-dir --with-libxml-dir=/usr/lib64 --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --with-curl --enable-mbregex --enable-fpm --enable-mbstring --with-mcrypt --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --enable-sockets --with-ldap --with-zlib --with-ldap-sasl --with-xmlrpc --enable-soap --with-ldap=shared --enable-pdo --with-pdo-mysql --without-pear --enable-opcache=no
 make && make install
 
 ## 配置php.ini
-cp ./php.ini-development /etc/php.ini
+cp ./php.ini-development ${PHP_INSTALL_PATH}/etc/php.ini
+ln -s ${PHP_INSTALL_PATH}/etc/php.ini /etc/php.ini
 
 ## start always_populate_raw_post_data
-sed -i 's/; always_populate_raw_post_data = -1/always_populate_raw_post_data = -1/g' /etc/php.ini
+# sed -i 's/; always_populate_raw_post_data = -1/always_populate_raw_post_data = -1/g' /etc/php.ini
 
 ## 设置root 环境变量
 echo "alias php='/usr/local/php/bin/php'" >> /root/.bashrc

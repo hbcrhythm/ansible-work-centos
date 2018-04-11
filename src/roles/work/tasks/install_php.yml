@@ -40,10 +40,10 @@
     - openldap-servers
 
 - name: Copy php install shell
-  template: src=php.install.j2 dest=/data/shell/php_install.sh
+  template: src=php.install.j2 dest={{ install_php }}/php_install.sh
 
 - name: Copy tar.gz
-  copy: src=libmcrypt-2.5.7.tar.gz dest=/data/shell
+  copy: src=libmcrypt-2.5.7.tar.gz dest={{ install_php }}
 
 - name: Extract archive
   unarchive:

@@ -1,22 +1,22 @@
 ---
 # Variables here are applicable to all host groups
 
-install_dir: /data/shell
+install_dir: /usr/local/server
 path_for_php: /usr/local/php/bin/php
 laravel_angular_admin_repository: https://github.com/hbcrhythm/laravel-angular-admin.git
 laravel_angular_admin_dir: /data/shell/laravel1
 
 asch_repository: https://github.com/sqfasd/asch.git
-asch_dir: /data/shell/asch
+asch_dir: /usr/local/server/asch
 
 proxychains_repository: https://github.com/rofl0r/proxychains-ng.git
-proxychains_dir: /data/shell/proxychains
+proxychains_dir: /usr/local/server/proxychains
 
 shadowsocks_ip: 192.168.0.104
 shadowsocks_port: 1080
 
 ansible_repository: https://github.com/ansible/ansible.git --recursive
-ansible_dir: /data/shell/ansible
+ansible_dir: /usr/local/server/ansible
 
 shadowsocks_server_ip: 127.0.0.1
 shadowsocks_server_port: 885
@@ -25,9 +25,9 @@ shadowsocks_password: password
 shadowsocks_encryption_atandard: aes-256-cfb
 
 redis_url: http://download.redis.io/releases/redis-4.0.1.tar.gz
-redis_dir: /data/shell/redis
+redis_dir: /usr/local/server/redis
 
-nodebb_dir: /data/shell/nodebb
+nodebb_dir: /usr/local/server/nodebb
 nodebb_version: v1.5.x
 nodebb_repository: https://github.com/NodeBB/NodeBB
 nodebb_nginx_port: 8900

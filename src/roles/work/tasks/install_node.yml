@@ -3,8 +3,8 @@
 
 - name: Download Node.js 
   get_url:
-    url: https://nodejs.org/dist/v6.11.0/node-v6.11.0.tar.gz
-    dest: "{{ install_dir }}/node-v6.11.0.tar.gz"
+    url: https://nodejs.org/dist/v8.11.1/node-v8.11.1.tar.gz
+    dest: "{{ install_dir }}/node-v8.11.1.tar.gz"
 
 # - name: Copy tar.gz
 #   copy: src=node-v6.11.0.tar.gz dest=/data/shell
@@ -12,8 +12,8 @@
 - name: Extract anchive
   unarchive:
     dest: "{{ install_dir }}"
-    src: "{{ install_dir }}/node-v6.11.0.tar.gz"
-    creates: "{{ install_dir }}/node-v6.11.0"
+    src: "{{ install_dir }}/node-v8.11.1.tar.gz"
+    creates: "{{ install_dir }}/node-v8.11.1"
     copy: no
 
 
@@ -22,7 +22,7 @@
   command: scl enable devtoolset-3 bash
 
 - name: Install node.js
-  command: chdir={{ install_dir }}/node-v6.11.0 {{ item }}
+  command: chdir={{ install_dir }}/node-v8.11.1 {{ item }}
   with_items:
     - ./configure
     - make
