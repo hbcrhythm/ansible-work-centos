@@ -1,0 +1,44 @@
+---
+## yum install vsftpd
+## yum install db4 db4-utils
+##
+## 设置密码
+##echo 'hbc
+##hbc666'>>/etc/vsftpd/vuser_passwd.txt
+## db_load -T -t hash -f /etc/vsftpd/vuser_passwd.txt /etc/vsftpd/vuser_passwd.db
+
+
+## 这里用 > 是因为要注释掉以前的所有内容， 如果这里不注释掉的话 你会发现你登陆不了，或者要创建系统用户才可以登陆。
+## echo 'auth required /lib64/security/pam_userdb.so db=/etc/vsftpd/vuser_passwd
+## account required /lib64/security/pam_userdb.so db=/etc/vsftpd/vuser_passwd' > /etc/pam.d/vsftpd
+
+## mkdir -p /etc/vsftpd/vuser_conf
+
+## 
+## echo '#虚拟用户根目录,根据实际情况修改
+## local_root=/data/ftp
+## #可写
+## write_enable=YES
+## #掩码
+## anon_umask=022
+## anon_world_readable_only=NO    ## 注意不能有空格，不然会包500错误
+## anon_upload_enable=YES 
+## anon_mkdir_write_enable=YES
+## anon_other_write_enable=YES' >> /etc/vsftpd/vuser_conf/hbc
+## 
+
+## mkdir -p /data/ftp
+## chmod -R 777 /data/ftp
+
+## echo '#FTP
+## -A INPUT -m state --state NEW -m tcp -p tcp --dport 30000:31000 -j ACCEPT
+## -A INPUT -m state --state NEW -m tcp -p tcp --dport 8021 -j ACCEPT' >> /etc/sysconfig/iptables
+
+## service iptables restart
+## setvice vsftpd restart
+
+
+#db_load -T -t hash -f /etc/vsftpd/vuser_passwd /etc/vsftpd/vuser_passwd.db
+
+
+# wait for write
