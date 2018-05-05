@@ -3,6 +3,7 @@
 # 如果以前安装过mysql的话 要看下/usr/bin/mysql 这个文件是不是新版本的，不是后面需要删掉旧版本的 把./bin/mysql复制过去。
 
 # This playbook will install mysql dependencies
+# shell> yum -y install numactl
 # shell> groupadd mysql
 # shell> useradd -r -g mysql -s /bin/false mysql
 # shell> cd /usr/local
@@ -28,6 +29,10 @@
 ## ===============
 # 脚本暂时没有更改root 密码这些步骤，后续加。 
 ## ===============
+- name: Install common package
+  yum: name={{ item }} state=installed
+  with_items:
+    - numactl
 
 - name: Download Mysql
   get_url:

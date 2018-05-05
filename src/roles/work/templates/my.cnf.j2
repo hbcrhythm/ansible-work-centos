@@ -1,6 +1,6 @@
 [mysqld]
-datadir=/var/lib/mysql/data
-socket=/var/lib/mysql/mysql.sock
+datadir=/usr/local/mysql/data
+socket=/tmp/mysql.sock
 user=mysql
 # Disabling symbolic-links is recommended to prevent assorted security risks
 symbolic-links=0
@@ -16,16 +16,16 @@ server-id = 1
 port = 3306
 
 #mysql安装根目录
-basedir = /opt/mysql
+#basedir = /opt/mysql
 
 #mysql数据文件所在位置
-datadir = /opt/mysql/data
+#datadir = /opt/mysql/data
 
 #临时目录 比如load data infile会用到
 tmpdir  = /tmp
 
 #设置socke文件所在目录
-socket  = /tmp/mysql.sock
+#socket  = /tmp/mysql.sock
 
 #主要用于MyISAM存储引擎,如果多台服务器连接一个数据库则建议注释下面内容
 skip-external-locking

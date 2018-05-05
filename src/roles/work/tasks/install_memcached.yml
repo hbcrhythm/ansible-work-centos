@@ -1,0 +1,7 @@
+---
+# This playbook will install memcached
+
+- name: Install common package
+  yum: name={{ item }} state=installed
+  with_items:
+    - memcached

@@ -16,6 +16,18 @@
     - mlocate
     - libselinux-python
 
+# 安装这个依赖之后 安装php扩展才会生成configure
+- name: Install autoconf
+  yum: name={{ item }} state=installed
+  with_items:
+    - m4
+    - autoconf
+
+- name: Install autoconf
+  yum: name={{ item }} state=installed
+  with_items:
+    - svn
+
 - name: updatedb
   command: updatedb
 
